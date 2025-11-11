@@ -1,0 +1,12 @@
+# Dépendances communes
+python-dotenv==1.0.0
+
+# Producer
+kafka-python==2.0.2
+
+# Consumer (Spark)
+pyspark==3.4.0
+psycopg2-binary==2.9.6
+
+# API Flask
+flask==2.3.3
