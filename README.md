@@ -1,76 +1,76 @@
 # Real-Time Data Pipeline Skeleton
 
-Ce projet propose un squelette prêt à l’emploi pour construire un pipeline de données en temps réel avec Kafka, Spark, PostgreSQL et une API Flask.
+This repository provides a reusable starting point for building end-to-end real-time data pipelines with Apache Kafka, Apache Spark Structured Streaming, PostgreSQL, and a Flask REST API. A 🇫🇷 French version of this guide is available in [`README.fr.md`](README.fr.md).
 
 ## Architecture
 
 ```
-Producteur -> Kafka -> Spark Structured Streaming -> PostgreSQL <- Flask API
+Producer -> Kafka -> Spark Structured Streaming -> PostgreSQL <- Flask API
 ```
 
 ## Technologies
 
-- Apache Kafka : ingestion évènementielle
-- Apache Spark Structured Streaming : calcul temps réel
-- PostgreSQL : persistance relationnelle
-- Flask : exposition REST
-- Docker Compose : orchestration locale
+- Apache Kafka for event ingestion
+- Apache Spark Structured Streaming for real-time processing
+- PostgreSQL for durable storage
+- Flask for REST exposure
+- Docker Compose for local orchestration
 
-## Structure
+## Project Structure
 
 ```
 .
-├── checkpoint/                    # stockage des états Spark (monté en volume)
+├── checkpoint/                    # Spark checkpoints (mounted volume)
 ├── docker/                        # Dockerfiles (Spark, API, producer)
-├── scripts/                       # scripts auxiliaires (init Kafka...)
+├── scripts/                       # helper scripts (Kafka init, …)
 ├── src/
-│   ├── api/                       # endpoints Flask
-│   ├── consumer/                  # job Spark
-│   ├── producer/                  # producteur Kafka
-│   └── utils/                     # utilitaires partagés
+│   ├── api/                       # Flask endpoints
+│   ├── consumer/                  # Spark job
+│   ├── producer/                  # Kafka producer
+│   └── utils/                     # shared helpers
 ├── tests/
-│   ├── integration/               # tests d’intégration (docker compose)
-│   └── unit/                      # tests unitaires Spark
-├── .env.example                   # modèle d’environnement
-├── docker-compose.yml             # orchestration des services
-├── requirements.txt               # dépendances applicatives
-├── requirements-dev.txt           # dépendances de test
+│   ├── integration/               # Docker Compose smoke tests
+│   └── unit/                      # Spark unit tests
+├── .env.example                   # environment template
+├── docker-compose.yml             # service orchestration
+├── requirements.txt               # runtime dependencies
+├── requirements-dev.txt           # test dependencies
 └── README.md
 ```
 
-## Mise en route
+## Getting Started
 
-1. Copier `.env.example` vers `.env` et ajuster les valeurs si besoin.
-2. Construire les images : `docker compose build`
-3. Lancer le pipeline : `docker compose up -d`
-4. Vérifier l’API : `curl http://localhost:5000/health`
+1. Copy `.env.example` to `.env` and tweak the values if necessary.
+2. Build the images: `docker compose build`
+3. Launch the stack: `docker compose up -d`
+4. Check the API: `curl http://localhost:5000/health`
 
 ## Services
 
-- Kafka (`9092`) et Zookeeper (`2181`)
-- Spark monitoring (`4040`, `8080`)
-- PostgreSQL (`5432`) et pgAdmin (`5050`)
-- API Flask (`5000` par défaut)
+- Kafka (`9092`) and Zookeeper (`2181`)
+- Spark monitoring UI (`4040`, `8080`)
+- PostgreSQL (`5432`) and pgAdmin (`5050`)
+- Flask API (`5000` by default)
 
-## Tests
+## Testing
 
-- Installer les dépendances : `pip install -r requirements.txt -r requirements-dev.txt`
-- Tests unitaires : `pytest tests/unit`
-- Tests d’intégration (docker requis) : `RUN_INTEGRATION_TESTS=1 pytest tests/integration`
-- Les tests d’intégration sont optionnels par défaut et valident la configuration Docker.
+- Install the dependencies: `pip install -r requirements.txt -r requirements-dev.txt`
+- Unit tests: `pytest tests/unit` (skipped on Python ≥ 3.12 because PySpark 3.4 lacks support)
+- Integration smoke test (requires Docker): `RUN_INTEGRATION_TESTS=1 pytest tests/integration`
+- Integration tests are disabled by default and only validate the Compose configuration.
 
-## Bonnes pratiques
+## Best Practices
 
-- Utiliser les fonctions `parse_kafka_records` et `aggregate_events` pour étendre les transformations Spark.
-- Adapter les schémas, topics et tables en fonction de votre cas d’usage.
-- Ajouter la télémétrie (logs structurés, métriques) selon vos critères de production.
+- Extend the Spark logic through `parse_kafka_records` and `aggregate_events` in `src/consumer/streaming_job.py`.
+- Adjust Kafka topics, schemas, and PostgreSQL tables to match your use case.
+- Add observability (structured logging, metrics, tracing) before promoting to production.
 
-## Publication GitHub
+## Publishing to GitHub
 
-- Initialiser le dépôt : `git init && git add . && git commit -m "Initial skeleton"`
-- Créer un repository vide sur GitHub puis lier l’origine : `git remote add origin https://github.com/<user>/<repo>.git`
-- Pousser la branche principale : `git push -u origin main`
+- Initialize Git: `git init && git add . && git commit -m "Initial skeleton"`
+- Create an empty repository on GitHub and link it: `git remote add origin https://github.com/<user>/<repo>.git`
+- Push the main branch: `git push -u origin main`
 
-## Soutenir le projet
+## Support the Project
 
-Si ce squelette vous est utile, vous pouvez soutenir son évolution en contribuant, en partageant le repository ou via un pourboire sur la plateforme de votre choix. Merci !
+If you find this skeleton helpful, consider contributing, sharing the repository, or leaving a tip on the platform of your choice. Thank you!
