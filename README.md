@@ -71,6 +71,7 @@ Producer -> Kafka -> Spark Structured Streaming -> PostgreSQL <- Flask API
 - Create an empty repository on GitHub and link it: `git remote add origin https://github.com/<user>/<repo>.git`
 - Push the main branch: `git push -u origin main`
 
-## Support the Project
+## Support
+If you find this project helpful, consider supporting the developer by [buying them a coffee](https://www.buymeacoffee.com/zakarialaktati)!
 
-If you find this skeleton helpful, consider contributing, sharing the repository, or leaving a tip on the platform of your choice. Thank you!
+[![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-Donate-yellow.svg)](https://www.buymeacoffee.com/zakarialaktati)
