@@ -1,4 +1,4 @@
-# Real-Time Data Pipeline Skeleton
+# Real-Time Data Pipeline Skeleton (template)
 
 This repository provides a reusable starting point for building end-to-end real-time data pipelines with Apache Kafka, Apache Spark Structured Streaming, PostgreSQL, and a Flask REST API. A 🇫🇷 French version of this guide is available in [`README.fr.md`](README.fr.md).
 
